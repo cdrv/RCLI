@@ -1,0 +1,13 @@
+Package: RCLI
+Type: Package
+Title: A Simple Rscript Argument Parser
+Version: 0.1.0
+Date: 2013-04-23
+Author: Kevin Ushey
+Maintainer: Kevin Ushey <kevinushey@gmail.com>
+Description: Adds some simple facilities for generating R scripts that can be
+    called with different arguments from the command line.
+License: GPL (>= 2)
+Collate:
+    'parse_args.R'
+    'RCLI.R'
