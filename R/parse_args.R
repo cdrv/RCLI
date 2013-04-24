@@ -18,8 +18,9 @@ parse_args <- function() {
   R_call_args <- paste(c1[1:(length(c1)-length(c2))])
   user_args <- c2
   
-  ## if length of user_args is 0, print out the usage and description
-  if( length(user_args) == 0 ) {
+  ## if '-h' or '--help' is passed in the command line args,
+  ## print out the usage and description
+  if( any( c('-h', '--help' ) %in% user_args ) ) {
     desc <- get('description', envir=.RCLI.env)
     usage <- get('usage', envir=.RCLI.env)
     if( !is.null(desc) )
@@ -36,7 +37,11 @@ parse_args <- function() {
         cat("Usage:", usage, "\n")
       }
     }
+    return( invisible(NULL) )
   }
+  
+  ## if '-h' or '--help' in command line args, remove them
+  user_args <- user_args[ !(user_args %in% c('-h', '--help')) ]
   
   ## check that each argument has an equals sign
   for( i in seq_along(user_args) ) {
