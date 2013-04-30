@@ -125,6 +125,7 @@ print_description <- function() {
     return( invisible(NULL) )
   }
   desc <- get('description', envir=.RCLI.env)
-  if( !is.null(desc) )
+  if( !is.null(desc) ) {
     cat("Description:", desc, '\n')
+  }
 }
