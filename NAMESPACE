@@ -1,3 +1,5 @@
 export(description)
 export(parse_args)
+export(print_description)
+export(print_usage)
 export(usage)

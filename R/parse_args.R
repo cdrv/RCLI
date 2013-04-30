@@ -2,6 +2,10 @@
 assign("description", NULL, envir=.RCLI.env)
 assign("usage", NULL, envir=.RCLI.env)
 
+## this flag helps us keep track of whether usage and description have been
+## printed
+assign("help_flag", FALSE, envir=.RCLI.env)
+
 #' Parse the Command Line Arguments
 #' 
 #' Ths function takes command line arguments of the form \code{var=value} from
@@ -21,22 +25,9 @@ parse_args <- function() {
   ## if '-h' or '--help' is passed in the command line args,
   ## print out the usage and description
   if( any( c('-h', '--help' ) %in% user_args ) ) {
-    desc <- get('description', envir=.RCLI.env)
-    usage <- get('usage', envir=.RCLI.env)
-    if( !is.null(desc) )
-      cat("Description:", desc, '\n')
-    if( !is.null(usage) ) {
-      if( is.list(usage) ) {
-        cat("Usage:\n")
-        for( i in seq_along( usage ) ) {
-          arg <- usage[[i]]
-          name <- names(usage)[i]
-          cat("  ", name, ": ", arg, "\n", sep="")
-        }
-      } else {
-        cat("Usage:", usage, "\n")
-      }
-    }
+    print_description()
+    print_usage()
+    assign("help_flag", TRUE, envir=.RCLI.env)
     return( invisible(NULL) )
   }
   
@@ -86,7 +77,32 @@ usage <- function(...) {
   return( invisible(NULL) )
 }
 
-#' Print out the Description
+#' Print Usage
+#' 
+#' Prints the usage, as set through \code{\link{usage}}.
+#' 
+#' @export
+#' @seealso \code{\link{usage}}
+print_usage <- function() {
+  if( get("help_flag", envir=.RCLI.env) ) {
+    return( invisible(NULL) )
+  }
+  usage <- get('usage', envir=.RCLI.env)
+  if( !is.null(usage) ) {
+    if( is.list(usage) ) {
+      cat("Usage:\n")
+      for( i in seq_along( usage ) ) {
+        arg <- usage[[i]]
+        name <- names(usage)[i]
+        cat("  ", name, ": ", arg, "\n", sep="")
+      }
+    } else {
+      cat("Usage:", usage, "\n")
+    }
+  }
+}
+
+#' Set the Description
 #' 
 #' This function \code{cat}s the description for an R script.
 #' 
@@ -96,4 +112,19 @@ description <- function(desc) {
   stopifnot( is.character(desc) && length(desc) == 1 )
   assign( "description", desc, envir=.RCLI.env )
   return( invisible(NULL) )
+}
+
+#' Print Description
+#' 
+#' Prints the description, as set through \code{\link{description}}.
+#' 
+#' @export
+#' @seealso \code{\link{description}}
+print_description <- function() {
+  if( get("help_flag", envir=.RCLI.env) ) {
+    return( invisible(NULL) )
+  }
+  desc <- get('description', envir=.RCLI.env)
+  if( !is.null(desc) )
+    cat("Description:", desc, '\n')
 }

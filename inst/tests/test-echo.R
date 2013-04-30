@@ -7,7 +7,8 @@ usage("Takes arguments of the form 'a=b', and outputs the variable name 'a' and 
 args <- parse_args()
 
 if( length(args) == 0 ) {
-  cat("No arguments passed.\n")
+  print_description()
+  print_usage()
 }
 
 for( i in seq_along(args) ) {

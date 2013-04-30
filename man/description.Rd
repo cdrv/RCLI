@@ -1,6 +1,6 @@
 \name{description}
 \alias{description}
-\title{Print out the Description}
+\title{Set the Description}
 \usage{
   description(desc)
 }
