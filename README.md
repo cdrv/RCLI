@@ -46,5 +46,5 @@ prints
     Usage: Takes arguments of the form 'a=b', and outputs the variable name 'a' and the value 'b'.
     
 Note that it is (currently) a requirement that all arguments are passed as
-named arguments; this may change in the future, however, currently I a strict
+named arguments; this may change in the future, however, I prefer a strict
 simplicity over complexity of other solutions.
