@@ -34,6 +34,17 @@ or, with `+x` permissions:
 
     echo.R a=1 b=2 c=3
     
+One can also get the description and usage information printed out using
+`-h` or `--help` as a command line argument; this is currently the only
+`-` style argument supported.
+
+    echo.R --help
+    
+prints
+
+    Description: A simple script that echos its arguments. 
+    Usage: Takes arguments of the form 'a=b', and outputs the variable name 'a' and the value 'b'.
+    
 Note that it is (currently) a requirement that all arguments are passed as
 named arguments; this may change in the future, however, currently I a strict
 simplicity over complexity of other solutions.
